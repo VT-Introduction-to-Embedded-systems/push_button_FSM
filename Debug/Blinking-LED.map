@@ -1,0 +1,285 @@
+******************************************************************************
+                  TI ARM Linker PC v18.1.2                     
+******************************************************************************
+>> Linked Tue Sep 11 20:39:45 2018
+
+OUTPUT FILE NAME:   <Blinking-LED.out>
+ENTRY POINT SYMBOL: "_c_int00_noinit_noargs"  address: 00000261
+
+
+MEMORY CONFIGURATION
+
+         name            origin    length      used     unused   attr    fill
+----------------------  --------  ---------  --------  --------  ----  --------
+  MAIN                  00000000   00040000  000003c2  0003fc3e  R  X
+  INFO                  00200000   00004000  00000000  00004000  R  X
+  SRAM_CODE             01000000   00010000  00000200  0000fe00  RW X
+  SRAM_DATA             20000000   00010000  00000200  0000fe00  RW  
+
+
+SEGMENT ALLOCATION MAP
+
+run origin  load origin   length   init length attrs members
+----------  ----------- ---------- ----------- ----- -------
+00000000    00000000    000003c4   000003c4    r-x
+  00000000    00000000    000000e4   000000e4    r-- .intvecs
+  000000e4    000000e4    000002ae   000002ae    r-x .text
+  00000394    00000394    00000030   00000030    r-- .const
+2000fe00    2000fe00    00000200   00000000    rw-
+  2000fe00    2000fe00    00000200   00000000    rw- .stack
+
+
+SECTION ALLOCATION MAP
+
+ output                                  attributes/
+section   page    origin      length       input sections
+--------  ----  ----------  ----------   ----------------
+.intvecs   0    00000000    000000e4     
+                  00000000    000000e4     startup_msp432p401r_ccs.obj (.intvecs:retain)
+
+.text      0    000000e4    000002ae     
+                  000000e4    00000078     system_msp432p401r.obj (.text:SystemInit)
+                  0000015c    00000058     msp432p4xx_driverlib.lib : gpio.o (.text:GPIO_setAsInputPinWithPullUpResistor)
+                  000001b4    00000040                              : gpio.o (.text:GPIO_setAsOutputPin)
+                  000001f4    0000003c     Blinking_LED_main.obj (.text:main)
+                  00000230    00000030     msp432p4xx_driverlib.lib : gpio.o (.text:GPIO_getInputPinValue)
+                  00000260    00000030     rtsv7M4_T_le_v4SPD16_eabi.lib : boot_cortex_m.c.obj (.text:_c_int00_noinit_noargs:_c_int00_noinit_noargs)
+                  00000290    00000028     msp432p4xx_driverlib.lib : gpio.o (.text:GPIO_setOutputHighOnPin)
+                  000002b8    00000028                              : gpio.o (.text:GPIO_setOutputLowOnPin)
+                  000002e0    00000028                              : gpio.o (.text:GPIO_toggleOutputOnPin)
+                  00000308    00000024                              : wdt_a.o (.text:WDT_A_holdTimer)
+                  0000032c    00000020     Blinking_LED_main.obj (.text:initialize)
+                  0000034c    0000000c     startup_msp432p401r_ccs.obj (.text:Reset_Handler)
+                  00000358    0000000c     Blinking_LED_main.obj (.text:SwitchStatus_Launchpad_Button1)
+                  00000364    0000000c     Blinking_LED_main.obj (.text:Toggle_Launchpad_Green_LED2)
+                  00000370    0000000c     Blinking_LED_main.obj (.text:TurnOff_Launchpad_LED1)
+                  0000037c    0000000c     Blinking_LED_main.obj (.text:TurnOn_Launchpad_LED1)
+                  00000388    00000004     rtsv7M4_T_le_v4SPD16_eabi.lib : pre_init.c.obj (.text:_system_pre_init)
+                  0000038c    00000004                                   : exit.c.obj (.text:abort:abort)
+                  00000390    00000002     startup_msp432p401r_ccs.obj (.text:Default_Handler)
+
+.const     0    00000394    00000030     
+                  00000394    00000030     msp432p4xx_driverlib.lib : gpio.o (.const:GPIO_PORT_TO_BASE)
+
+.cinit     0    00000000    00000000     UNINITIALIZED
+
+.init_array 
+*          0    00000000    00000000     UNINITIALIZED
+
+.binit     0    00000000    00000000     
+
+.stack     0    2000fe00    00000200     UNINITIALIZED
+                  2000fe00    00000004     rtsv7M4_T_le_v4SPD16_eabi.lib : boot_cortex_m.c.obj (.stack)
+                  2000fe04    000001fc     --HOLE--
+
+MODULE SUMMARY
+
+       Module                        code   ro data   rw data
+       ------                        ----   -------   -------
+    .\
+       Blinking_LED_main.obj         140    0         0      
+       system_msp432p401r.obj        120    0         0      
+    +--+-----------------------------+------+---------+---------+
+       Total:                        260    0         0      
+                                                             
+    .\ccs\
+       startup_msp432p401r_ccs.obj   14     228       0      
+    +--+-----------------------------+------+---------+---------+
+       Total:                        14     228       0      
+                                                             
+    C:/ti/simplelink_msp432p4_sdk_2_20_00_12/source/ti/devices/msp432p4xx/driverlib/ccs/msp432p4xx_driverlib.lib
+       gpio.o                        320    48        0      
+       wdt_a.o                       36     0         0      
+    +--+-----------------------------+------+---------+---------+
+       Total:                        356    48        0      
+                                                             
+    C:\ti\ccsv8\tools\compiler\ti-cgt-arm_18.1.2.LTS\lib\rtsv7M4_T_le_v4SPD16_eabi.lib
+       boot_cortex_m.c.obj           48     0         0      
+       exit.c.obj                    4      0         0      
+       pre_init.c.obj                4      0         0      
+    +--+-----------------------------+------+---------+---------+
+       Total:                        56     0         0      
+                                                             
+       Stack:                        0      0         1024   
+    +--+-----------------------------+------+---------+---------+
+       Grand Total:                  686    276       1024   
+
+
+GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name 
+
+address   name                                
+-------   ----                                
+00000391  ADC14_IRQHandler                    
+00000391  AES256_IRQHandler                   
+00000391  BusFault_Handler                    
+0000038d  C$$EXIT                             
+00000391  COMP_E0_IRQHandler                  
+00000391  COMP_E1_IRQHandler                  
+00000391  CS_IRQHandler                       
+00000391  DMA_ERR_IRQHandler                  
+00000391  DMA_INT0_IRQHandler                 
+00000391  DMA_INT1_IRQHandler                 
+00000391  DMA_INT2_IRQHandler                 
+00000391  DMA_INT3_IRQHandler                 
+00000391  DebugMon_Handler                    
+00000391  Default_Handler                     
+00000391  EUSCIA0_IRQHandler                  
+00000391  EUSCIA1_IRQHandler                  
+00000391  EUSCIA2_IRQHandler                  
+00000391  EUSCIA3_IRQHandler                  
+00000391  EUSCIB0_IRQHandler                  
+00000391  EUSCIB1_IRQHandler                  
+00000391  EUSCIB2_IRQHandler                  
+00000391  EUSCIB3_IRQHandler                  
+00000391  FLCTL_IRQHandler                    
+00000391  FPU_IRQHandler                      
+00000231  GPIO_getInputPinValue               
+0000015d  GPIO_setAsInputPinWithPullUpResistor
+000001b5  GPIO_setAsOutputPin                 
+00000291  GPIO_setOutputHighOnPin             
+000002b9  GPIO_setOutputLowOnPin              
+000002e1  GPIO_toggleOutputOnPin              
+00000391  HardFault_Handler                   
+00000391  MemManage_Handler                   
+00000391  NMI_Handler                         
+00000391  PCM_IRQHandler                      
+00000391  PORT1_IRQHandler                    
+00000391  PORT2_IRQHandler                    
+00000391  PORT3_IRQHandler                    
+00000391  PORT4_IRQHandler                    
+00000391  PORT5_IRQHandler                    
+00000391  PORT6_IRQHandler                    
+00000391  PSS_IRQHandler                      
+00000391  PendSV_Handler                      
+00000391  RTC_C_IRQHandler                    
+0000034d  Reset_Handler                       
+00000391  SVC_Handler                         
+00000359  SwitchStatus_Launchpad_Button1      
+00000391  SysTick_Handler                     
+000000e5  SystemInit                          
+00000391  T32_INT1_IRQHandler                 
+00000391  T32_INT2_IRQHandler                 
+00000391  T32_INTC_IRQHandler                 
+00000391  TA0_0_IRQHandler                    
+00000391  TA0_N_IRQHandler                    
+00000391  TA1_0_IRQHandler                    
+00000391  TA1_N_IRQHandler                    
+00000391  TA2_0_IRQHandler                    
+00000391  TA2_N_IRQHandler                    
+00000391  TA3_0_IRQHandler                    
+00000391  TA3_N_IRQHandler                    
+00000365  Toggle_Launchpad_Green_LED2         
+00000371  TurnOff_Launchpad_LED1              
+0000037d  TurnOn_Launchpad_LED1               
+00000391  UsageFault_Handler                  
+4000480c  WDTCTL_SYM                          
+00000391  WDT_A_IRQHandler                    
+00000309  WDT_A_holdTimer                     
+20010000  __STACK_END                         
+00000200  __STACK_SIZE                        
+ffffffff  __TI_pprof_out_hndl                 
+ffffffff  __TI_prof_data_size                 
+ffffffff  __TI_prof_data_start                
+00000000  __TI_static_base__                  
+ffffffff  __binit__                           
+ffffffff  __c_args__                          
+UNDEFED   __mpu_init                          
+2000fe00  __stack                             
+00000261  _c_int00_noinit_noargs              
+00000389  _system_pre_init                    
+0000038d  abort                               
+ffffffff  binit                               
+0000032d  initialize                          
+00000000  interruptVectors                    
+000001f5  main                                
+
+
+GLOBAL SYMBOLS: SORTED BY Symbol Address 
+
+address   name                                
+-------   ----                                
+00000000  __TI_static_base__                  
+00000000  interruptVectors                    
+000000e5  SystemInit                          
+0000015d  GPIO_setAsInputPinWithPullUpResistor
+000001b5  GPIO_setAsOutputPin                 
+000001f5  main                                
+00000200  __STACK_SIZE                        
+00000231  GPIO_getInputPinValue               
+00000261  _c_int00_noinit_noargs              
+00000291  GPIO_setOutputHighOnPin             
+000002b9  GPIO_setOutputLowOnPin              
+000002e1  GPIO_toggleOutputOnPin              
+00000309  WDT_A_holdTimer                     
+0000032d  initialize                          
+0000034d  Reset_Handler                       
+00000359  SwitchStatus_Launchpad_Button1      
+00000365  Toggle_Launchpad_Green_LED2         
+00000371  TurnOff_Launchpad_LED1              
+0000037d  TurnOn_Launchpad_LED1               
+00000389  _system_pre_init                    
+0000038d  C$$EXIT                             
+0000038d  abort                               
+00000391  ADC14_IRQHandler                    
+00000391  AES256_IRQHandler                   
+00000391  BusFault_Handler                    
+00000391  COMP_E0_IRQHandler                  
+00000391  COMP_E1_IRQHandler                  
+00000391  CS_IRQHandler                       
+00000391  DMA_ERR_IRQHandler                  
+00000391  DMA_INT0_IRQHandler                 
+00000391  DMA_INT1_IRQHandler                 
+00000391  DMA_INT2_IRQHandler                 
+00000391  DMA_INT3_IRQHandler                 
+00000391  DebugMon_Handler                    
+00000391  Default_Handler                     
+00000391  EUSCIA0_IRQHandler                  
+00000391  EUSCIA1_IRQHandler                  
+00000391  EUSCIA2_IRQHandler                  
+00000391  EUSCIA3_IRQHandler                  
+00000391  EUSCIB0_IRQHandler                  
+00000391  EUSCIB1_IRQHandler                  
+00000391  EUSCIB2_IRQHandler                  
+00000391  EUSCIB3_IRQHandler                  
+00000391  FLCTL_IRQHandler                    
+00000391  FPU_IRQHandler                      
+00000391  HardFault_Handler                   
+00000391  MemManage_Handler                   
+00000391  NMI_Handler                         
+00000391  PCM_IRQHandler                      
+00000391  PORT1_IRQHandler                    
+00000391  PORT2_IRQHandler                    
+00000391  PORT3_IRQHandler                    
+00000391  PORT4_IRQHandler                    
+00000391  PORT5_IRQHandler                    
+00000391  PORT6_IRQHandler                    
+00000391  PSS_IRQHandler                      
+00000391  PendSV_Handler                      
+00000391  RTC_C_IRQHandler                    
+00000391  SVC_Handler                         
+00000391  SysTick_Handler                     
+00000391  T32_INT1_IRQHandler                 
+00000391  T32_INT2_IRQHandler                 
+00000391  T32_INTC_IRQHandler                 
+00000391  TA0_0_IRQHandler                    
+00000391  TA0_N_IRQHandler                    
+00000391  TA1_0_IRQHandler                    
+00000391  TA1_N_IRQHandler                    
+00000391  TA2_0_IRQHandler                    
+00000391  TA2_N_IRQHandler                    
+00000391  TA3_0_IRQHandler                    
+00000391  TA3_N_IRQHandler                    
+00000391  UsageFault_Handler                  
+00000391  WDT_A_IRQHandler                    
+2000fe00  __stack                             
+20010000  __STACK_END                         
+4000480c  WDTCTL_SYM                          
+ffffffff  __TI_pprof_out_hndl                 
+ffffffff  __TI_prof_data_size                 
+ffffffff  __TI_prof_data_start                
+ffffffff  __binit__                           
+ffffffff  __c_args__                          
+ffffffff  binit                               
+UNDEFED   __mpu_init                          
+
+[83 symbols]
