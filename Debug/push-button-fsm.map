@@ -1,7 +1,7 @@
 ******************************************************************************
                   TI ARM Linker PC v18.1.2                     
 ******************************************************************************
->> Linked Wed Sep 19 18:19:09 2018
+>> Linked Wed Sep 19 21:59:07 2018
 
 OUTPUT FILE NAME:   <push-button-fsm.out>
 ENTRY POINT SYMBOL: "_c_int00_noargs"  address: 0000039d
@@ -13,8 +13,8 @@ MEMORY CONFIGURATION
 ----------------------  --------  ---------  --------  --------  ----  --------
   MAIN                  00000000   00040000  0000053e  0003fac2  R  X
   INFO                  00200000   00004000  00000000  00004000  R  X
-  SRAM_CODE             01000000   00010000  00000201  0000fdff  RW X
-  SRAM_DATA             20000000   00010000  00000201  0000fdff  RW  
+  SRAM_CODE             01000000   00010000  00000202  0000fdfe  RW X
+  SRAM_DATA             20000000   00010000  00000202  0000fdfe  RW  
 
 
 SEGMENT ALLOCATION MAP
@@ -26,8 +26,8 @@ run origin  load origin   length   init length attrs members
   000000e4    000000e4    00000412   00000412    r-x .text
   000004f8    000004f8    00000030   00000030    r-- .const
   00000528    00000528    00000018   00000018    r-- .cinit
-20000000    20000000    00000001   00000000    rw-
-  20000000    20000000    00000001   00000000    rw- .data
+20000000    20000000    00000002   00000000    rw-
+  20000000    20000000    00000002   00000000    rw- .data
 2000fe00    2000fe00    00000200   00000000    rw-
   2000fe00    2000fe00    00000200   00000000    rw- .stack
 
@@ -68,8 +68,8 @@ section   page    origin      length       input sections
 
 .cinit     0    00000528    00000018     
                   00000528    00000008     (__TI_handler_table)
-                  00000530    00000005     (.cinit..data.load) [load image, compression = lzss]
-                  00000535    00000003     --HOLE-- [fill = 0]
+                  00000530    00000006     (.cinit..data.load) [load image, compression = lzss]
+                  00000536    00000002     --HOLE-- [fill = 0]
                   00000538    00000008     (__TI_cinit_table)
 
 .init_array 
@@ -77,8 +77,8 @@ section   page    origin      length       input sections
 
 .binit     0    00000000    00000000     
 
-.data      0    20000000    00000001     UNINITIALIZED
-                  20000000    00000001     push_button_fsm_main.obj (.data)
+.data      0    20000000    00000002     UNINITIALIZED
+                  20000000    00000002     push_button_fsm_main.obj (.data)
 
 .stack     0    2000fe00    00000200     UNINITIALIZED
                   2000fe00    00000004     rtsv7M4_T_le_v4SPD16_eabi.lib : boot_cortex_m.c.obj (.stack)
@@ -89,10 +89,10 @@ MODULE SUMMARY
        Module                        code   ro data   rw data
        ------                        ----   -------   -------
     .\
-       push_button_fsm_main.obj      186    0         2      
+       push_button_fsm_main.obj      186    0         4      
        system_msp432p401r.obj        120    0         0      
     +--+-----------------------------+------+---------+---------+
-       Total:                        306    0         2      
+       Total:                        306    0         4      
                                                              
     .\ccs\
        startup_msp432p401r_ccs.obj   14     228       0      
@@ -117,15 +117,15 @@ MODULE SUMMARY
        Total:                        406    0         0      
                                                              
        Stack:                        0      0         1024   
-       Linker Generated:             0      21        0      
+       Linker Generated:             0      22        0      
     +--+-----------------------------+------+---------+---------+
-       Grand Total:                  1042   297       1026   
+       Grand Total:                  1042   298       1028   
 
 
 LINKER GENERATED COPY TABLES
 
 __TI_cinit_table @ 00000538 records: 1, size/record: 8, table size: 8
-	.data: load addr=00000530, load size=00000005 bytes, run addr=20000000, run size=00000001 bytes, compression=lzss
+	.data: load addr=00000530, load size=00000006 bytes, run addr=20000000, run size=00000002 bytes, compression=lzss
 
 
 LINKER GENERATED HANDLER TABLE

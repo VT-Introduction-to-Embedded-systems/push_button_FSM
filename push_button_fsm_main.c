@@ -88,61 +88,107 @@ bool Launchpad_Button1_pushed_verbose()
     // The output of the FSM
     bool take_action;
 
-    while (1) {
+    switch(button1_state)
+    {
+    // make sure you have one "case" for each state.
+    // make sure there is a break at the end of each case before the next case
+    case PUSHED:
+        // for each state, make sure you implement each transition arc
 
-        switch(button1_state)
+        // transition arc from PUSHED to RELEASED
+        if (!Launchpad_Button1_pressed())
         {
-        // make sure you have one "case" for each state.
-        // make sure there is a break at the end of each case before the next case
-        case PUSHED:
-            // for each state, make sure you implement each transition arc
+            // assign the output
+            take_action = false;
 
-            // transition arc from PUSHED to RELEASED
-            if (!Launchpad_Button1_pressed())
-            {
-                // assign the output
-                take_action = false;
+            // next state
+            button1_state = RELEASED;
+         }
+        // arc from PUSHED to PUSHED
+        else
+        {
+            // assign the output
+            take_action = false;
 
-                // next state
-                button1_state = RELEASED;
-            }
-            // arc from PUSHED to PUSHED
-            else
-            {
-                // assign the output
-                take_action = false;
+            // next state
+            button1_state = PUSHED;
+         }
 
-                // next state
-                button1_state = PUSHED;
-            }
-
-            break;
+        break;
 
 
-        case RELEASED:
+     case RELEASED:
 
-            // transition arc from RELEASED to PUSHED
-            if (Launchpad_Button1_pressed())
-            {
-                //output of the arc
-                take_action = true;
+         // transition arc from RELEASED to PUSHED
+         if (Launchpad_Button1_pressed())
+         {
+             //output of the arc
+             take_action = true;
 
-                // next state
-                button1_state = PUSHED;
-             }
-            // arc from RELEASED to RELEASED
-            else
-            {
-                // assign the output
-                take_action = false;
+             // next state
+             button1_state = PUSHED;
+          }
+         // arc from RELEASED to RELEASED
+         else
+         {
+             // assign the output
+             take_action = false;
 
-                // next state
-                button1_state = PUSHED;
-            }
+             // next state
+             button1_state = PUSHED;
+          }
+       }
+
+    return(take_action);
+
+}
+
+
+bool Launchpad_Button1_pushed_brief()
+{
+    // The state of button1
+    static button_state_t button1_state = RELEASED;
+
+    // The output of the FSM
+    // To make the function brief and more efficient, we can assign a default value to the output
+    bool take_action = false;
+
+    switch(button1_state)
+    {
+    // make sure you have one "case" for each state.
+    // make sure there is a break at the end of each case before the next case
+    case PUSHED:
+        // for each state, make sure you implement each transition arc
+
+        // transition arc from PUSHED to RELEASED
+        if (!Launchpad_Button1_pressed())
+        {
+            // assign the output
+            // this is not needed anymore: take_action = false;
+
+            // next state
+            button1_state = RELEASED;
+         }
+        // The arc from PUSHED to PUSHED does not need implementation since the state does not change AND its output is also defaul
+
+        break;
+
+
+    case RELEASED:
+
+        // transition arc from RELEASED to PUSHED
+        if (Launchpad_Button1_pressed())
+        {
+            //output of the arc
+            take_action = true;
+
+            // next state
+            button1_state = PUSHED;
         }
+        // arc from RELEASED to RELEASED does not need implemenation for a similar reason to line 172
 
-        return(take_action);
+     }
 
-    }
+    return(take_action);
 
 }
