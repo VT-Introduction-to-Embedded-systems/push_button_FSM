@@ -22,6 +22,7 @@ bool Launchpad_Button1_pressed();
 
 // This is the raw status of the button (0 or 1)
 char SwitchStatus_Launchpad_Button1();
+bool Launchpad_Button1_pushed_verbose();
 
 // The type that holds the states of the button for its FSM
 typedef enum {PUSHED, RELEASED} button_state_t;
@@ -29,45 +30,10 @@ typedef enum {PUSHED, RELEASED} button_state_t;
 int main(void)
 {
     initialize();
-
-    // The state of button1
-    button_state_t button1_state = RELEASED;
-
-    // The output of the FSM
-    bool do_toggle_LED1 = false;
-
-    while (1) {
-
-        switch(button1_state)
-        {
-        case PUSHED:
-
-            // transition arc from PUSHED to RELEASED
-            if (!Launchpad_Button1_pressed())
-            {
-                //output of the arc
-                do_toggle_LED1 = false;
-
-                // next state
-                button1_state = RELEASED;
-            }
-            break;
-
-        // transition arc from RELEASED to PUSHED
-        case RELEASED:
-            if (Launchpad_Button1_pressed())
-            {
-                //output of the arc
-                do_toggle_LED1 = true;
-
-                // next state
-                button1_state = PUSHED;
-             }
-        }
-
-        if (do_toggle_LED1)
+    while(1)
+    {
+        if(Launchpad_Button1_pushed_verbose())
             Toggle_Launchpad_LED1();
-
     }
 }
 
@@ -112,4 +78,71 @@ char SwitchStatus_Launchpad_Button1()
 bool Launchpad_Button1_pressed()
 {
     return (GPIO_getInputPinValue(GPIO_PORT_P1, GPIO_PIN1) == PRESSED);
+}
+
+bool Launchpad_Button1_pushed_verbose()
+{
+    // The state of button1
+    static button_state_t button1_state = RELEASED;
+
+    // The output of the FSM
+    bool take_action;
+
+    while (1) {
+
+        switch(button1_state)
+        {
+        // make sure you have one "case" for each state.
+        // make sure there is a break at the end of each case before the next case
+        case PUSHED:
+            // for each state, make sure you implement each transition arc
+
+            // transition arc from PUSHED to RELEASED
+            if (!Launchpad_Button1_pressed())
+            {
+                // assign the output
+                take_action = false;
+
+                // next state
+                button1_state = RELEASED;
+            }
+            // arc from PUSHED to PUSHED
+            else
+            {
+                // assign the output
+                take_action = false;
+
+                // next state
+                button1_state = PUSHED;
+            }
+
+            break;
+
+
+        case RELEASED:
+
+            // transition arc from RELEASED to PUSHED
+            if (Launchpad_Button1_pressed())
+            {
+                //output of the arc
+                take_action = true;
+
+                // next state
+                button1_state = PUSHED;
+             }
+            // arc from RELEASED to RELEASED
+            else
+            {
+                // assign the output
+                take_action = false;
+
+                // next state
+                button1_state = PUSHED;
+            }
+        }
+
+        return(take_action);
+
+    }
+
 }
